@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import mailerService from "../services/mailer.service";
 import userService from "../services/user.service";
 
 class UserController {
@@ -10,6 +11,7 @@ class UserController {
 
   createUser = async (req: Request, res: Response) => {
     const user = await userService.create(req);
+
     return res.status(201).json(user);
   };
 

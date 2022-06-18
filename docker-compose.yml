@@ -1,0 +1,27 @@
+version: "3.3"
+
+services:
+  api_express:
+    container_name: courses
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/app/src
+    expose:
+      - 5000
+    ports:
+      - 5000:5000
+    depends_on:
+      - db
+    command: bash -c 'yarn migration:run && yarn dev'
+
+  db:
+    container_name: kenzie_courses
+    image: postgres
+    env_file:
+      - .env
+    expose:
+      - 5432
+    ports:
+      - 5432:5432
